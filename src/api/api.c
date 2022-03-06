@@ -158,34 +158,6 @@ void getStats(const int *sock)
 void getOverTime(const int *sock)
 {
 	int from = 0, until = OVERTIME_SLOTS;
-	bool found = false;
-	time_t mintime = overTime[0].timestamp;
-
-	// Start with the first non-empty overTime slot
-	for(int slot = 0; slot < OVERTIME_SLOTS; slot++)
-	{
-		if((overTime[slot].total > 0 || overTime[slot].blocked > 0) &&
-		   overTime[slot].timestamp >= mintime)
-		{
-			from = slot;
-			found = true;
-			break;
-		}
-	}
-
-	// End with last non-empty overTime slot
-	for(int slot = 0; slot < OVERTIME_SLOTS; slot++)
-	{
-		if(overTime[slot].timestamp >= time(NULL))
-		{
-			until = slot;
-			break;
-		}
-	}
-
-	// Check if there is any data to be sent
-	if(!found)
-		return;
 
 	if(istelnet[*sock])
 	{
