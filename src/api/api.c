@@ -74,6 +74,15 @@ static int __attribute__((pure)) cmpdesc(const void *a, const void *b)
 		return 0;
 }
 
+void getSup(const int *sock)
+{
+	if(istelnet[*sock]) {
+		ssend(*sock, "notmuch\n");
+	}
+	else
+	  pack_str32(*sock, "notmuch\n");
+}
+
 void getStats(const int *sock)
 {
 	const int blocked = blocked_queries();

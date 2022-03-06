@@ -32,7 +32,14 @@ void process_request(const char *client_message, int *sock)
 	EOT[1] = 0x00;
 	bool processed = false;
 
-	if(command(client_message, ">stats"))
+	if(command(client_message, ">sup"))
+	{
+		processed = true;
+		lock_shm();
+		getSup(sock);
+		unlock_shm();
+	}
+	else if(command(client_message, ">stats"))
 	{
 		processed = true;
 		lock_shm();

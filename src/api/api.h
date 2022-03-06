@@ -10,6 +10,8 @@
 #ifndef API_H
 #define API_H
 
+void getSup(const int *sock);
+
 // Statistic methods
 void getStats(const int *sock);
 void getOverTime(const int *sock);
