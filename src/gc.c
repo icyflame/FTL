@@ -153,7 +153,7 @@ void *GC_thread(void *val)
 			// Requests should not be processed/answered when data is about to change
 			lock_shm();
 
-			// Get minimum timestamp to keep (this can be set with MAXLOGAGE)
+			// Get minimum timestamp to keep (this can be set with MAXLOGAGE_IN_SECONDS)
 			time_t mintime = (now - GCdelay) - config.maxlogage;
 
 			// Align to the start of the next hour. This will also align with

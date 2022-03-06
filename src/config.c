@@ -243,23 +243,19 @@ void read_FTLconf(void)
 		if(value > 0 && value <= 65535)
 			config.port = value;
 
-	// MAXLOGAGE
-	// Up to how many hours in the past should queries be imported from the database?
-	// defaults to: 24.0 via MAXLOGAGE defined in FTL.h
-	config.maxlogage = MAXLOGAGE*3600;
-	buffer = parse_FTLconf(fp, "MAXLOGAGE");
+	// MAXLOGAGE_IN_SECONDS
+	// Up to how many seconds in the past should queries be imported from the database?
+	config.maxlogage = MAXLOGAGE_IN_SECONDS;
+	buffer = parse_FTLconf(fp, "MAXLOGAGE_IN_SECONDS");
 
-	fvalue = 0;
-	const char *hint = "";
-	if(buffer != NULL && sscanf(buffer, "%f", &fvalue))
-	{
-		if(fvalue >= 0.0f && fvalue <= 1.0f*MAXLOGAGE)
-			config.maxlogage = (int)(fvalue * 3600);
-		else if(fvalue > 1.0f*MAXLOGAGE)
-			hint = " (value has been clipped to " str(MAXLOGAGE) " hours)";
-	}
-	logg("   MAXLOGAGE: Importing up to %.1f hours of log data%s",
-	     (float)config.maxlogage/3600.0f, hint);
+	int ivalue = 0;
+	if(buffer != NULL &&
+	    sscanf(buffer, "%i", &ivalue) &&
+	    ivalue >= 0)
+			config.maxlogage = ivalue;
+
+	logg("   MAXLOGAGE_IN_SECONDS: Importing up to %d seconds of log data",
+	     config.maxlogage);
 
 	// PRIVACYLEVEL
 	// Specify if we want to anonymize the DNS queries somehow, available options are:
@@ -418,7 +414,7 @@ void read_FTLconf(void)
 	config.network_expire = config.maxDBdays;
 	buffer = parse_FTLconf(fp, "MAXNETAGE");
 
-	int ivalue = 0;
+	ivalue = 0;
 	if(buffer != NULL &&
 	    sscanf(buffer, "%i", &ivalue) &&
 	    ivalue > 0 && ivalue <= 8760) // 8760 days = 24 years

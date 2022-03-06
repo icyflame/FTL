@@ -51,8 +51,8 @@
 
 #define SOCKETBUFFERLEN 1024
 
-// How often do we garbage collect (to ensure we only have data fitting to the MAXLOGAGE defined above)? [seconds]
-// Default: 3600 (once per hour)
+// How often do we garbage collect (to ensure we only have data fitting to the MAXLOGAGE_IN_SECONDS
+// defined here)? [seconds]
 #define GCinterval 3600
 
 // Delay applied to the garbage collecting [seconds]
@@ -65,19 +65,19 @@
 // Over how many queries do we iterate at most when trying to find a match?
 #define MAXITER 1000
 
-// How many hours do we want to store in FTL's memory? [hours]
-#define MAXLOGAGE 24
+// How many minutes do we want to store in FTL's memory? [hours]
+#define MAXLOGAGE_IN_SECONDS 600
 
 // Interval for overTime data [seconds]
 // Default: 600 (10 minute intervals)
-#define OVERTIME_INTERVAL 600
+#define OVERTIME_INTERVAL 60
 
 // How many overTime slots do we need?
 // (24+1) hours * number of intervals per hour
 // We need to be able to hold 25 hours as we need some reserve
 // due to that GC is only running once an hours so the shown data
 // can be 24 hours + 59 minutes
-#define OVERTIME_SLOTS ((MAXLOGAGE+1)*3600/OVERTIME_INTERVAL)
+#define OVERTIME_SLOTS (MAXLOGAGE_IN_SECONDS/OVERTIME_INTERVAL+1)
 
 // Interval for re-resolving ALL known host names [seconds]
 // Default: 3600 (once every hour)
