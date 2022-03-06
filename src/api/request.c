@@ -46,6 +46,13 @@ void process_request(const char *client_message, int *sock)
 		getStats(sock);
 		unlock_shm();
 	}
+	else if(command(client_message, ">overTime>newestCompletedSlot"))
+	{
+		processed = true;
+		lock_shm();
+		getOverTimeNewestCompletedSlot(sock);
+		unlock_shm();
+	}
 	else if(command(client_message, ">overTime"))
 	{
 		processed = true;

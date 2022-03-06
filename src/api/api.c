@@ -218,6 +218,25 @@ void getOverTime(const int *sock)
 	}
 }
 
+void getOverTimeNewestCompletedSlot(const int *sock)
+{
+	time_t now = time(NULL);
+	unsigned int slot = getOverTimeID(now);
+
+	// If not the first slot, then get the last completed slot.
+	if (slot > 0) slot--;
+
+	if(istelnet[*sock])	{
+		ssend(*sock, "timestamp %lld\n", (long long) overTime[slot].timestamp);
+		ssend(*sock, "total %d\n", overTime[slot].total);
+		ssend(*sock, "blocked %d\n", overTime[slot].blocked);
+		ssend(*sock, "cached %d\n", overTime[slot].cached);
+		ssend(*sock, "forwarded %d", overTime[slot].forwarded);
+	} else {
+		pack_str32(*sock, "unsupported\n");
+	}
+}
+
 void getTopDomains(const char *client_message, const int *sock)
 {
 	int temparray[counters->domains][2], count=10, num;

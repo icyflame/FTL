@@ -11,6 +11,7 @@
 #define API_H
 
 void getSup(const int *sock);
+void getOverTimeNewestCompletedSlot(const int *sock);
 
 // Statistic methods
 void getStats(const int *sock);
