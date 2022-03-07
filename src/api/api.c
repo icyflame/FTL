@@ -199,14 +199,19 @@ void getOverTimeNewestCompletedSlot(const int *sock)
 	if (slot > 0) slot--;
 
 	if(istelnet[*sock])	{
-		ssend(*sock, "timestamp %lld\n", (long long) overTime[slot].timestamp);
-		ssend(*sock, "total %d\n", overTime[slot].total);
-		ssend(*sock, "blocked %d\n", overTime[slot].blocked);
-		ssend(*sock, "cached %d\n", overTime[slot].cached);
-		ssend(*sock, "forwarded %d", overTime[slot].forwarded);
+		writeOverTimeSlotToSock(overTime[slot], sock);
 	} else {
 		pack_str32(*sock, "unsupported\n");
 	}
+}
+
+void writeOverTimeSlotToSock(overTimeData slot, const int *sock)
+{
+	ssend(*sock, "timestamp %lld\n", (long long) slot.timestamp);
+	ssend(*sock, "total %d\n", slot.total);
+	ssend(*sock, "blocked %d\n", slot.blocked);
+	ssend(*sock, "cached %d\n", slot.cached);
+	ssend(*sock, "forwarded %d", slot.forwarded);
 }
 
 void getTopDomains(const char *client_message, const int *sock)

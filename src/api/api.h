@@ -10,6 +10,9 @@
 #ifndef API_H
 #define API_H
 
+#include "../overTime.h"
+
+void writeOverTimeSlotToSock(overTimeData slot, const int *sock);
 void getSup(const int *sock);
 void getOverTimeNewestCompletedSlot(const int *sock);
 
