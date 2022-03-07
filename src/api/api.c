@@ -174,22 +174,7 @@ void getOverTime(const int *sock)
 	}
 	else
 	{
-		// We can use the map16 type because there should only be about 288 time slots (TIMEFRAME set to "yesterday")
-		// and map16 can hold up to (2^16)-1 = 65535 pairs
-
-		// Send domains over time
-		pack_map16_start(*sock, (uint16_t) (until - from));
-		for(int slot = from; slot < until; slot++) {
-			pack_int32(*sock, (int32_t)overTime[slot].timestamp);
-			pack_int32(*sock, overTime[slot].total);
-		}
-
-		// Send ads over time
-		pack_map16_start(*sock, (uint16_t) (until - from));
-		for(int slot = from; slot < until; slot++) {
-			pack_int32(*sock, (int32_t)overTime[slot].timestamp);
-			pack_int32(*sock, overTime[slot].blocked);
-		}
+		pack_str32(*sock, "unsupported\n");
 	}
 }
 
