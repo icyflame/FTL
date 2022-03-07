@@ -53,10 +53,9 @@
 
 // How often do we garbage collect (to ensure we only have data fitting to the MAXLOGAGE_IN_SECONDS
 // defined here)? [seconds]
-#define GCinterval 180
+#define GCinterval 1800
 
 // Delay applied to the garbage collecting [seconds]
-// Default: -60 (one minute before a full hour)
 #define GCdelay (-60)
 
 // How many client connection do we accept at once?
