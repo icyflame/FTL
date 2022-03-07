@@ -161,12 +161,15 @@ void getOverTime(const int *sock)
 
 	if(istelnet[*sock])
 	{
+		ssend(*sock,"timestamp\ttotal\tblocked\tcached\tforwarded\n");
 		for(int slot = from; slot < until; slot++)
 		{
-			ssend(*sock,"%lli %i %i\n",
+			ssend(*sock,"%lli\t%i\t%i\t%i\t%i\n",
 			      (long long)overTime[slot].timestamp,
 			      overTime[slot].total,
-			      overTime[slot].blocked);
+			      overTime[slot].blocked,
+			      overTime[slot].cached,
+			      overTime[slot].forwarded);
 		}
 	}
 	else
