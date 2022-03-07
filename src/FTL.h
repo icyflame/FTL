@@ -53,7 +53,7 @@
 
 // How often do we garbage collect (to ensure we only have data fitting to the MAXLOGAGE_IN_SECONDS
 // defined here)? [seconds]
-#define GCinterval 1800
+#define GCinterval 90
 
 // Delay applied to the garbage collecting [seconds]
 #define GCdelay (-60)
@@ -65,7 +65,7 @@
 #define MAXITER 1000
 
 // How many minutes do we want to store in FTL's memory? [hours]
-#define MAXLOGAGE_IN_SECONDS 600
+#define MAXLOGAGE_IN_SECONDS 1200
 
 // Interval for overTime data [seconds]
 // Default: 600 (10 minute intervals)
